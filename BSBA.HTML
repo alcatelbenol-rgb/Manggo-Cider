@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MangGlow Cider</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<style>
+/* ===== GLOBAL STYLES ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fff8f0, #ffe6cc);
+    color: #333;
+    overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ===== HERO ===== */
+.hero {
+    text-align: center;
+    padding: 80px 20px 60px;
+    background: linear-gradient(to bottom right, #ffe5b4, #ffc187);
+}
+.hero img {
+    width: 180px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(255,170,50,0.4);
+}
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #ff6f3c;
+    margin-bottom: 15px;
+}
+.hero p {
+    font-size: 1.2rem;
+    color: #664c39;
+    max-width: 600px;
+    margin: 0 auto 25px;
+}
+.hero button {
+    background: #ff914d;
+    color: #fff;
+    border: none;
+    padding: 14px 35px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.hero button:hover { 
+    background: #ffb366;
+    transform: scale(1.05);
+}
+
+/* ===== GALLERY ===== */
+.gallery-section {
+    padding: 70px 20px;
+    text-align: center;
+}
+.gallery-section h2 {
+    font-size: 2.4rem;
+    color: #ff6f3c;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 40px;
+}
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+.product-item {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 260px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255,140,70,0.3);
+}
+.product-item img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 12px;
+}
+.product-item h3 {
+    color: #ff6f3c;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+.product-item p {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* ===== TESTIMONIALS ===== */
+.testimonial-section {
+    padding: 70px 20px;
+    background: #fff4e6;
+    text-align: center;
+}
+.testimonial-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: #ff6f3c;
+    font-size: 2.2rem;
+    margin-bottom: 35px;
+}
+.testimonial {
+    display: inline-block;
+    background: #fff;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    max-width: 300px;
+    font-style: italic;
+    color: #555;
+}
+
+/* ===== ORDER FORM ===== */
+.order-section {
+    text-align: center;
+    padding: 70px 20px;
+}
+.order-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.3rem;
+    color: #ff6f3c;
+    margin-bottom: 30px;
+}
+.order-form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.order-form label {
+    text-align: left;
+    font-weight: 600;
+    color: #664c39;
+}
+.order-form input, .order-form textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ffc187;
+    font-size: 1rem;
+}
+.order-form button {
+    background: #ff914d;
+    border: none;
+    color: #fff;
+    padding: 14px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.order-form button:hover {
+    background: #ffb366;
+    transform: scale(1.05);
+}
+.price-display {
+    font-weight: bold;
+    color: #ff6f3c;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+/* ===== SUCCESS POPUP ===== */
+.success-popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.success-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    animation: pop 0.4s ease;
+}
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.success-content h3 {
+    color: #28a745;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+.success-content p {
+    color: #555;
+    margin-bottom: 10px;
+}
+.success-content button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background: #ff914d;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.success-content button:hover {
+    background: #ffb366;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 25px 10px;
+    background: #ff6f3c;
+    color: #fff;
+    font-size: 0.9rem;
+}
+footer a {
+    color: #fff;
+    margin: 0 8px;
+    font-weight: 600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 768px) {
+    .gallery { flex-direction: column; align-items: center; }
+    .product-item { max-width: 90%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <img src="Mangglow cide2.jfif" alt="MangGlow Cider">
+    <h1>MangGlow Cider</h1>
+    <p>Light, fruity sparkle made from real tropical ingredients. Refresh your day, the elegant way.</p>
+    <button onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Order Now</button>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="gallery-section">
+    <h2>Our Signature Flavors</h2>
+    <div class="gallery">
+        <div class="product-item">
+            <img src="Mangglow cide3.jfif" alt="Mango Glow Cider" loading="lazy">
+            <h3></h3>
+            <p></p>
+        </div>
+        <div class="product-item">
+            <img src="Mangglow cide1.jfif" alt="MangGlow Cider Bottles" loading="lazy">
+            <h3></h3>
+            <p></p>
+        </div>
+        <!-- UPDATED THIRD ITEM -->
+        <div class="product-item">
+            <img src="Mangglow cide2.jfif" alt="MangGlow Mango Cider Bottle" loading="lazy">
+            <h3></h3>
+            <p>.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonial-section">
+    <h2>Customer Love</h2>
+    <div class="testimonial">“Super refreshing! Hindi nakakasawa — perfect sa gatherings.”</div>
+    <div class="testimonial">“Ang ganda ng packaging at lasa. Instagram-worthy!”</div>
+</section>
+
+<!-- ===== ORDER ===== -->
+<section class="order-section" id="order">
+    <h2>Place Your Order</h2>
+    <form class="order-form" onsubmit="return submitOrder(event)">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+        
+        <label for="contact">Contact Number</label>
+        <input type="text" id="contact" placeholder="09xxxxxxxxx" required>
+        
+        <label for="address">Address</label>
+        <input type="text" id="address" placeholder="Delivery address" required>
+        
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" placeholder="Number of bottles" min="1" required>
+        
+        <div class="price-display" id="priceDisplay">Price: ₱120.00 per bottle</div>
+        
+        <label for="notes">Additional Notes</label>
+        <textarea id="notes" placeholder="Special instructions"></textarea>
+        
+        <button type="submit">Send Order</button>
+    </form>
+</section>
+
+<!-- ===== SUCCESS POPUP ===== -->
+<div class="success-popup" id="successBox">
+    <div class="success-content">
+        <h3>🎉 Order Successful!</h3>
+        <p id="orderSummary"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    &copy; 2025 MangGlow Cider. Follow us: 
+    <a href="#" target="_blank">Facebook</a> | 
+    <a href="#" target="_blank">Instagram</a> | 
+    <a href="#" target="_blank">TikTok</a>
+</footer>
+
+<script>
+const pricePerBottle = 120;
+
+document.getElementById("quantity").addEventListener("input", () => {
+    const qty = parseInt(document.getElementById("quantity").value) || 0;
+    const total = qty * pricePerBottle;
+    document.getElementById("priceDisplay").textContent = 
+        qty > 0 ? `Total: ₱${total.toFixed(2)} (${qty} bottle${qty!==1?'s':''})`
+                : `Price: ₱120.00 per bottle`;
+});
+
+function submitOrder(event) {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const contact = document.getElementById("contact").value;
+    const qty = parseInt(document.getElementById("quantity").value);
+    if (name && contact && qty) {
+        const total = qty * pricePerBottle;
+        const summary = `Thank you, <b>${name}</b>!<br>
+        Contact: <b>${contact}</b><br>
+        Quantity: <b>${qty}</b> bottle(s)<br>
+        Total: <b>₱${total.toFixed(2)}</b><br>
+        We'll contact you soon for confirmation.`;
+        document.getElementById("orderSummary").innerHTML = summary;
+        document.getElementById("successBox").style.display = "flex";
+        document.querySelector(".order-form").reset();
+        document.getElementById("priceDisplay").textContent = "Price: ₱120.00 per bottle";
+    }
+}
+
+function closePopup() {
+    document.getElementById("successBox").style.display = "none";
+}
+</script>
+
+</body>
+</html>
